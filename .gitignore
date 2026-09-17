@@ -1,0 +1,19 @@
+node_modules/
+client/node_modules/
+client/dist/
+
+data/*.db
+data/*.db-*
+
+uploads/**
+!uploads/contest_materials/
+!uploads/contest_materials/.gitkeep
+
+.DS_Store
+Thumbs.db
+
+# local runtime and installers
+runtime/
+Setup_win/*.exe
+
+.cursor/

@@ -1,0 +1,70 @@
+{
+  "name": "code-collector",
+  "version": "2.0.0",
+  "main": "electron/main.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "electron:start": "electron .",
+    "build:web": "npm --prefix client run build",
+    "build:icon": "node scripts/build-icon.js",
+    "prepare:runtime": "node scripts/prepare-runtime.js",
+    "pack:win": "npm run build:web && npm run build:icon && npm run prepare:runtime && electron-builder --win portable --x64",
+    "release:win": "node scripts/release-win.js",
+    "pack:win:portable": "npm run build:web && npm run build:icon && npm run prepare:runtime && electron-builder --win portable --x64",
+    "release:win:portable": "node scripts/release-win.js --portable-only",
+    "reset-db": "node scripts/reset-db.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "archiver": "^7.0.1",
+    "bcryptjs": "^3.0.3",
+    "better-sqlite3": "^12.9.0",
+    "connect-sqlite3": "^0.9.16",
+    "cors": "^2.8.6",
+    "express": "^5.2.1",
+    "express-session": "^1.19.0",
+    "iconv-lite": "^0.7.2",
+    "jsonwebtoken": "^9.0.3",
+    "multer": "^2.1.1"
+  },
+  "devDependencies": {
+    "electron": "^28.3.3",
+    "electron-builder": "^24.13.3",
+    "png-to-ico": "^2.1.8",
+    "sharp": "^0.34.4"
+  },
+  "build": {
+    "appId": "com.codecollector.desktop",
+    "productName": "CodeCollector",
+    "asar": false,
+    "npmRebuild": false,
+    "directories": {
+      "output": "Setup_win"
+    },
+    "files": [
+      "electron/**/*",
+      "server.js",
+      "src/**/*",
+      "client/dist/**/*",
+      "runtime/node.exe",
+      "build-assets/icon.ico",
+      "package.json",
+      "node_modules/**/*"
+    ],
+    "win": {
+      "icon": "build-assets/icon.ico",
+      "signAndEditExecutable": false,
+      "target": [
+        "portable"
+      ]
+    },
+    "portable": {
+      "artifactName": "CodeCollector-Portable-${version}-${arch}.${ext}"
+    }
+  }
+}
